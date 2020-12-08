@@ -6,6 +6,7 @@ import { SnackbarProvider } from "notistack";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import AppBar from "./components/AppBar";
+import { fetchReleases } from "./services/Releases";
 
 function App() {
   return (
@@ -22,4 +23,6 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+fetchReleases().finally(() => {
+  ReactDOM.render(<App />, document.getElementById("root"));
+});

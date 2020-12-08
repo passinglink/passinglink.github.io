@@ -3,6 +3,8 @@ import React from "react";
 import { DFU } from "webdfu";
 import globalHook, { Store } from "use-global-hook";
 
+import { getReleases, getNightlyVersion, downloadRelease } from "../services/Releases";
+
 type DeviceState = {
   device: USBDevice,
   dfu: DFU.Device;
@@ -17,10 +19,14 @@ type DFUState = {
 
 type DFUActions = {
   setSnackbarCallbacks: (cbs: any) => void;
+
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
-  flash: (bytes: ArrayBuffer) => Promise<void>;
+
   fetch: () => Promise<Blob>;
+
+  flash: (bytes: ArrayBuffer) => Promise<void>;
+  downloadAndFlash: (release: string, board: string) => Promise<void>;
 }
 
 const initialState: DFUState = {
@@ -37,6 +43,11 @@ async function findDevice(vendorId: number, productId: number, serialNumber: str
   }
 
   throw "Device not found.";
+}
+
+function toast(store: Store<DFUState, DFUActions>, message: string, toastType?: string) {
+  store.state.snackbar.closeSnackbar();
+  return store.state.snackbar.enqueueSnackbar(message, { variant: toastType });
 }
 
 const actions = {
@@ -122,9 +133,6 @@ const actions = {
     }
 
     store.state.activeDevice.device.close();
-
-    store.state.snackbar.closeSnackbar();
-    store.state.snackbar.enqueueSnackbar("DFU device disconnected.");
     store.setState({ ...store.state, activeDevice: null });
   },
 
@@ -150,10 +158,30 @@ const actions = {
     store.setState({...store.state, operating: true });
     const dfu = store.state.activeDevice.dfu;
 
+    toast(store, `Flashing ${bytes.byteLength} bytes...`);
     // TODO: Use the actual wTransferSize value.
-    return await dfu.do_download(32768, bytes, false).finally(() => {
+    return await dfu.do_download(32768, bytes, false).catch(err => {
+      if (err.message.startsWith("Error during reset for manifestation")) {
+        // USB reset failed, but the flash still succeeded.
+        return;
+      }
+
+      toast(store, `Failed to flash: ${err}`, "error");
+      throw err;
+    }).then(() => {
+      toast(store, "Successfully flashed!", "success");
+    }).finally(() => {
       store.setState({...store.state, operating: false });
+      actions.disconnect(store);
     });
+  },
+
+  downloadAndFlash: async (store: Store<DFUState, DFUActions>, release: string, board: string) => {
+    store.setState({...store.state, operating: true });
+
+    toast(store, `Downloading release "${release}" for board ${board}`);
+    const data = await downloadRelease(release, board);
+    return await actions.flash(store, data);
   },
 }
 

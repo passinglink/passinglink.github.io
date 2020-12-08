@@ -6801,6 +6801,11 @@ uncss@^0.17.3:
     postcss-selector-parser "6.0.2"
     request "^2.88.0"
 
+underscore@^1.6.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.12.0.tgz#4814940551fc80587cef7840d1ebb0f16453be97"
+  integrity sha512-21rQzss/XPMjolTiIezSu3JAjgagXKROtNrYFEOWK109qY1Uv2tVjPTZ1ci2HgvQDA16gHYSthQIJfB+XId/rQ==
+
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"
@@ -6970,6 +6975,13 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+version-sort@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/version-sort/-/version-sort-0.1.1.tgz#b3c937000555ed03d312a2d42def65948265b08b"
+  integrity sha1-s8k3AAVV7QPTEqLULe9llIJlsIs=
+  dependencies:
+    underscore "^1.6.0"
 
 vlq@^0.2.2:
   version "0.2.3"

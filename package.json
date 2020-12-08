@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-sage": "^0.1.5",
     "use-global-hook": "^0.2.1",
+    "version-sort": "^0.1.1",
     "webdfu": "^1.0.5"
   },
   "devDependencies": {

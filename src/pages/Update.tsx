@@ -13,6 +13,7 @@ import Page from ".";
 import type { DeviceState } from "../services/Bluetooth";
 
 import { useDFU } from "../services/DFU";
+import { getReleases, getNightlyDate, getNightlyVersion } from "../services/Releases";
 
 export default class UpdatePage implements Page {
   title = "Firmware Update";
@@ -56,29 +57,16 @@ export default class UpdatePage implements Page {
       maxFileSize: 1 * 1024 * 1024,
     });
 
-    const onUpload = (blob: Blob, version?: string) => {
-      console.log(`Flashing ${blob.size} bytes...`);
-      blob.arrayBuffer().then(bytes => actions.flash(bytes)).catch(err => {
-        if (err.message.startsWith("Error during reset for manifestation")) {
-          // USB reset failed, but the flash still succeeded.
-          return;
-        }
+    const releases = getReleases();
+    const release = releases.length > 0 ? releases[releases.length - 1] : null;
 
-        throw err;
-      }).then(() => {
-        let message = "Successfully flashed.";
-        if (version != undefined) {
-          message = `Successfully flashed ${version}.`;
-        }
-        enqueueSnackbar(message, { variant: "success" });
-      }).catch((err) => {
-        enqueueSnackbar(`Failed to flash: ${err}`, { variant: "error" });
-      });
-      console.log("onUpload: " + blob);
+    const onUpload = (blob: Blob) => {
+      blob.arrayBuffer().then(bytes => actions.flash(bytes));
     };
 
-    const onUploadRelease = (track: string) => () => {
-      // TODO: Implement me.
+    const onUploadRelease = (release: string) => () => {
+      const board = state.activeDevice!.device.productName!;
+      actions.downloadAndFlash(release, board);
     };
 
     const onUploadFile = () => {
@@ -127,11 +115,22 @@ export default class UpdatePage implements Page {
               secondary={haveDevice ? state.activeDevice!.device.serialNumber : "N/A"}
             />
           </ListItem>
-          <ListItem button onClick={onUploadRelease("release")} disabled={true}>
-            <ListItemText primary="Flash latest release" secondary={"Flash the latest released version"}/>
+          <ListItem button onClick={onUploadRelease(release!)} disabled={disableActions}>
+            <ListItemText
+              primary="Flash latest release"
+              secondary={
+                "Flash the latest released version " +
+                ((release != null) ? `(${release})` : "")
+              }
+            />
           </ListItem>
-          <ListItem button onClick={onUploadRelease("nightly")} disabled={true}>
-            <ListItemText primary="Flash latest nightly" secondary={"Flash the latest nightly version"}/>
+          <ListItem button onClick={onUploadRelease("nightly")} disabled={disableActions}>
+            <ListItemText
+              primary="Flash latest nightly"
+              secondary={
+                `Flash the latest nightly version (${getNightlyDate()}-${getNightlyVersion()})`
+              }
+            />
           </ListItem>
 
           <ListItem button onClick={onUploadFile} disabled={disableActions}>
