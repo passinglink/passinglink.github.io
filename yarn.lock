@@ -1127,6 +1127,11 @@
   dependencies:
     immer "^7.0.7"
 
+"@types/w3c-web-usb@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/w3c-web-usb/-/w3c-web-usb-1.0.4.tgz#57e4181041dc1ad2bfad59b737caa7bddc7e1a27"
+  integrity sha512-aaOB3EL5WCWBBOYX7W1MKuzspOM9ZJI9s3iziRVypr1N+QyvIgXzCM4lm1iiOQ1VFzZioUPX9bsa23myCbKK4A==
+
 "@types/web-bluetooth@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.9.tgz#bfd545f6cbc32fc9d92e9543b5ea18ba0957e955"
@@ -5692,6 +5697,11 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-sage@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/react-sage/-/react-sage-0.1.5.tgz#b819549363ebcf11327755af601d142fd2d59429"
+  integrity sha512-a/L5ILib9QitvtCY4BwFnMwaelgDfg7Hg8lNWaYlqxVHtbrvc6A/JGPwcUX/6/ye9LZ4Vo7bCRFKamdMKEpvcA==
+
 react-transition-group@^4.4.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
@@ -6993,6 +7003,11 @@ wcwidth@^1.0.1:
   integrity sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=
   dependencies:
     defaults "^1.0.3"
+
+webdfu@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/webdfu/-/webdfu-1.0.5.tgz#0ef8f4600802b6b533ed52a3774903a49f636821"
+  integrity sha512-aZ7FwAq5qCUMas6wpkISQzb+DuE+9dCdpIWejZuQGzsNqr0UlaVCvz4oezoGDoGtTKmRaXjpUlTBung+lGAHVQ==
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
