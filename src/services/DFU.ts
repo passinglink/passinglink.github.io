@@ -145,7 +145,7 @@ const actions = {
     const dfu = store.state.activeDevice.dfu;
 
     // TODO: Use the actual wTransferSize value.
-    return await dfu.do_upload(32768).finally(() => {
+    return await dfu.do_upload(4096).finally(() => {
       store.setState({...store.state, operating: false });
     });
   },
@@ -160,7 +160,7 @@ const actions = {
 
     toast(store, `Flashing ${bytes.byteLength} bytes...`);
     // TODO: Use the actual wTransferSize value.
-    return await dfu.do_download(32768, bytes, false).catch(err => {
+    return await dfu.do_download(4096, bytes, false).catch(err => {
       if (err.message.startsWith("Error during reset for manifestation")) {
         // USB reset failed, but the flash still succeeded.
         return;
