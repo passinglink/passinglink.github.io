@@ -119,8 +119,7 @@ export default class UpdatePage implements Page {
             <ListItemText
               primary="Flash latest release"
               secondary={
-                "Flash the latest released version " +
-                ((release != null) ? `(${release})` : "")
+                `Flash the latest released version: v${release!}`
               }
             />
           </ListItem>
@@ -128,7 +127,7 @@ export default class UpdatePage implements Page {
             <ListItemText
               primary="Flash latest nightly"
               secondary={
-                `Flash the latest nightly version (${getNightlyDate()}-${getNightlyVersion()})`
+                `Flash the latest nightly version: ${getNightlyVersion()} (${getNightlyDate()})`
               }
             />
           </ListItem>
