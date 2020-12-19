@@ -1,8 +1,9 @@
 import version_sort from "version-sort";
 
-type ReleaseInfo = {
+type ReleaseJson = {
   releases?: {
     [version: string]: {
+      date: string,
       filename: string,
       boards: string[],
     },
@@ -16,20 +17,32 @@ type ReleaseInfo = {
   }
 };
 
-let data: ReleaseInfo = {};
+let data: ReleaseJson = {};
+
+type ReleaseInfo = {
+  version: string,
+  date: string,
+  filename: string,
+  boards: string[],
+};
 
 const baseUrl = "https://passinglink.github.io/passinglink";
 
 export async function fetchReleases() : Promise<void> {
   const response = await fetch(`${baseUrl}/releases.json`);
-  data = await response.json()! as ReleaseInfo;
+  data = await response.json()! as ReleaseJson;
 }
 
-export function getReleases() : Array<string> {
+export function getReleases() : Array<ReleaseInfo> {
   if (!("releases" in data)) {
     return [];
   }
-  return version_sort(Object.keys(data.releases!));
+
+  const versions = version_sort(Object.keys(data.releases!));
+  return versions.map(version => ({
+    ...data.releases![version],
+    version: version,
+  }));
 }
 
 export function getNightlyDate() : string {

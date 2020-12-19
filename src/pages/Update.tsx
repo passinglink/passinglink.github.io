@@ -115,11 +115,11 @@ export default class UpdatePage implements Page {
               secondary={haveDevice ? state.activeDevice!.device.serialNumber : "N/A"}
             />
           </ListItem>
-          <ListItem button onClick={onUploadRelease(release!)} disabled={disableActions}>
+          <ListItem button onClick={onUploadRelease(release!.version)} disabled={disableActions}>
             <ListItemText
               primary="Flash latest release"
               secondary={
-                `Flash the latest released version: v${release!}`
+                `Flash the latest released version: v${release!.version} (${release!.date})`
               }
             />
           </ListItem>
