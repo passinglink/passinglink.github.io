@@ -1127,6 +1127,11 @@
   dependencies:
     immer "^7.0.7"
 
+"@types/w3c-web-hid@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/w3c-web-hid/-/w3c-web-hid-1.0.0.tgz#eca49db58fd114f6839579fba6e4a422e8a2e4c5"
+  integrity sha512-sbcYWo0eP/XvVqtDFh9h1zFoPtr7nLGQjGJFtHlKcKdrz+dXFPTKK7JpCpORBQkqNodvOQx8OW8FbdOiEuwHOQ==
+
 "@types/w3c-web-usb@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@types/w3c-web-usb/-/w3c-web-usb-1.0.4.tgz#57e4181041dc1ad2bfad59b737caa7bddc7e1a27"

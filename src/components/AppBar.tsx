@@ -23,6 +23,7 @@ import Page from "../pages";
 import DevicePage from "../pages/Device";
 import InputPage from "../pages/Input";
 import GundamPage from "../pages/Gundam";
+import ProvisioningPage from "../pages/Provisioning";
 import SettingsPage from "../pages/Settings";
 import UpdatePage from "../pages/Update";
 import AboutPage from "../pages/About";
@@ -61,6 +62,7 @@ const routes: (Page | undefined)[] = [
   new GundamPage(),
   new SettingsPage(),
   undefined,
+  new ProvisioningPage(),
   new UpdatePage(),
   undefined,
   new AboutPage(),
